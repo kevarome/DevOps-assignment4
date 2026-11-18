@@ -65,22 +65,6 @@ aws cloudformation describe-stacks --region $region --stack-name $stack `
   --query 'Stacks[0].Outputs[].[OutputKey,OutputValue]' --output table
 ```
 
-## Record the assignment demo
-
-1. **Capture the baseline.** Show the deployed CloudFront URL and point to the **Technical projects** heading. Keep this browser tab open.
-2. **Walk through the pipeline.** Show the diagram and the successful baseline execution. Explain which branch triggers Source, what Build packages, how Test blocks a bad artifact, and where Deploy puts the files. Open a CodeBuild log for an example of the checks.
-3. **Make one visible change.** In `site/index.html`, change the heading text from **Technical projects** to **Selected technical projects**. Run the local build and tests, then commit only that change. Show the diff and the short commit ID on screen.
-
-   ```powershell
-   git diff -- site/index.html
-   git add -- site/index.html
-   git commit -m "Clarify selected technical projects heading"
-   git rev-parse --short HEAD
-   git push origin main
-   ```
-
-4. **Prove the push triggered delivery.** In CodePipeline, find the new execution that started after your push. Compare its source revision with the commit you just showed. Wait for Deploy to succeed and refresh the original CloudFront tab. Point to the new heading at the same URL.
-5. **Report what worked.** Cover the website, Git source trigger, packaging, automated tests, deployment and logs. Identify any stages that failed or remain unverified in your account. The template implements build/test logging. Custom website health monitoring, alarms and notifications are outside this implementation. Upload your recording to a platform the grader can open, check the link in a signed-out window, and submit the **recording URL**.
 
 ## Maintain and troubleshoot
 

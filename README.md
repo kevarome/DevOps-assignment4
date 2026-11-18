@@ -75,9 +75,3 @@ aws cloudformation describe-stacks --region $region --stack-name $stack `
 - **Build or Test fails.** Open the failed action's details and follow the CodeBuild log to the first failing command. Rebuild locally from the same revision and run the tests on `dist`. For a missing buildspec, verify its path and capitalization in GitHub.
 - **Website returns 403 or shows old content.** Use the CloudFront `WebsiteUrl`. Wait for a successful Deploy, check that `index.html` is at the root of `SiteBucketName`, then refresh. Confirm the execution's source revision matches your push. For a persistent 403, check the distribution's origin and the bucket policy's distribution ARN.
 
-## Clean up after recording
-
-1. Confirm the recording link works. Finish any running pipeline execution and pause further pushes during cleanup.
-2. In the stack's **Outputs**, identify `SiteBucketName` and `ArtifactBucketName`. In S3, select each of those exact buckets and choose **Empty**. This removes the demo website and pipeline artifacts. CloudFormation requires empty buckets for deletion. [S3 bucket emptying](https://docs.aws.amazon.com/AmazonS3/latest/userguide/empty-bucket.html)
-3. In CloudFormation, select this assignment stack and choose **Delete**. Follow its events until deletion completes, including the CloudFront distribution. If a bucket refilled, let the run finish, empty that bucket and retry deletion.
-4. If you created a dedicated GitHub connection for this assignment, delete it under Developer Tools → Settings → Connections. Remove its GitHub app installation or repository access only if other projects do not use it. Verify that the assignment resources are gone in CloudFormation and check the account's Billing dashboard for usage.

@@ -1,0 +1,5 @@
+version: 0.2
+phases:
+  build:
+    commands:
+      - python3 scripts/test_site.py "$CODEBUILD_SRC_DIR_SiteArtifact"

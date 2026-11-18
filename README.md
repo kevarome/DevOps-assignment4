@@ -43,12 +43,12 @@ A separate private S3 bucket stores pipeline artifacts. The CodeBuild project se
 ## Deploy to AWS
 
 1. **Push the project.** Verify that `git remote get-url origin` points to your GitHub repository. Review the résumé details you intend to publish, commit your files, and run `git push -u origin main`. Verify that GitHub shows the two buildspec files at the repository root.
-2. **Choose the AWS account and Region.** Use an authenticated AWS CLI v2 profile for the assignment account. The examples use N. Virginia (`us-east-1`). The deploying identity needs access to the services in the template, including permission to create and pass its IAM roles and pass the GitHub connection. Check your account's plan, credits and service availability in Billing before creating the stack. This design uses a V1 pipeline and two CodeBuild runs per revision. Storage, traffic and logging also count toward usage. [CodePipeline pricing](https://aws.amazon.com/codepipeline/pricing/) · [CodeBuild pricing](https://aws.amazon.com/codebuild/pricing/)
+2. **Choose the AWS account and Region.** Use an authenticated AWS CLI v2 profile for the assignment account. The examples use Oregon (`us-west-2`). The deploying identity needs access to the services in the template, including permission to create and pass its IAM roles and pass the GitHub connection. Check your account's plan, credits and service availability in Billing before creating the stack. This design uses a V1 pipeline and two CodeBuild runs per revision. Storage, traffic and logging also count toward usage. [CodePipeline pricing](https://aws.amazon.com/codepipeline/pricing/) · [CodeBuild pricing](https://aws.amazon.com/codebuild/pricing/)
 3. **Authorize GitHub.** In the chosen Region, open Developer Tools → Settings → Connections. Choose **Create connection**, select **GitHub**, and connect. Select or install the AWS Connector for GitHub app, grant it access to `kevarome/DevOps-assignment4`, and finish the connection. Wait for **Available** and copy its ARN. If you already have an available connection with access to this repository in that Region, use its ARN. [AWS GitHub connection guide](https://docs.aws.amazon.com/codepipeline/latest/userguide/connections-github.html)
 4. **Create the stack.** From the repository root, run the following in the same PowerShell session. Set the Region to match the connection. Confirm the account printed by the first AWS command belongs to the assignment. CloudFormation provisions the distribution, buckets, roles, logs, build project and pipeline, which can take several minutes.
 
 ```powershell
-$region = 'us-east-1'
+$region = 'us-west-2'
 $stack = 'comp4964-resume'
 $repo = 'kevarome/DevOps-assignment4'
 $connection = Read-Host 'Paste the Available GitHub connection ARN'
